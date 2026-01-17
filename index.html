@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עיכול של שינוי – מבהלה לביטחון | רבקה</title>
+    
+    <!-- Google Fonts: Rubik -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-green: #1B4D3E;
+            --accent-gold: #D4AF37;
+            --bg-cream: #F8F9FA;
+            --text-dark: #333333;
+            --topic-terracotta: #E08E79;
+            --topic-peach: #FFF0EB;
+            --shadow-soft: 0 15px 35px rgba(27, 77, 62, 0.08);
+            --radius-card: 20px;
+            --radius-btn: 50px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-size: 26px; 
+            line-height: 1.6;
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        h1, h2, h3 { 
+            color: var(--primary-green); 
+            font-weight: 700; 
+            line-height: 1.2; 
+            margin-bottom: 1.2rem;
+            text-wrap: balance; 
+        }
+        h1 { font-size: 3.8rem; }
+        h2 { font-size: 3rem; text-align: center; }
+        h2::after {
+            content: ''; display: block; width: 80px; height: 5px; 
+            background: var(--topic-terracotta); margin: 15px auto 0; border-radius: 3px;
+        }
+        
+        section { padding: 80px 0; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--topic-peach) 0%, #ffffff 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .info-badge {
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 4px 15px rgba(27, 77, 62, 0.2);
+        }
+
+        .form-box {
+            background: white; 
+            max-width: 700px; 
+            margin: 30px auto;
+            padding: 45px; 
+            border-radius: 30px; 
+            border: 4px solid var(--topic-peach);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .webinar-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        .webinar-info-row i {
+            color: var(--accent-gold);
+            width: 30px;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .form-group { margin-bottom: 25px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 700; color: var(--primary-green); font-size: 1.4rem; }
+        .form-group input {
+            width: 100%; padding: 20px; border: 2px solid #eee; border-radius: 12px; font-family: 'Rubik'; font-size: 1.4rem;
+            background: #fafafa;
+        }
+        .form-group input:focus { outline: none; border-color: var(--accent-gold); background: white; }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: white;
+            padding: 1.4rem 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            border-radius: var(--radius-btn);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
+
+        .btn-secondary {
+            background-color: var(--primary-green);
+            max-width: 450px;
+            margin: 30px auto;
+            display: block;
+        }
+
+        .symptoms-box {
+            background: white;
+            padding: 50px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-soft);
+            margin: 40px 0;
+        }
+        .symptom-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        .symptom-item i {
+            color: #d93025;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-size: 1.7rem;
+            flex-shrink: 0;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .card {
+            background: white;
+            padding: 50px 35px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-soft);
+            border-top: 8px solid var(--accent-gold);
+            text-align: center;
+        }
+        .card-icon {
+            font-size: 3.5rem;
+            color: var(--topic-terracotta);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .about { background: white; }
+        .about-wrapper { display: flex; gap: 60px; align-items: center; }
+        .about-image img {
+            width: 400px; height: 400px; border-radius: 50%;
+            border: 12px solid var(--topic-peach); object-fit: cover;
+            flex-shrink: 0;
+        }
+        .about-quote {
+            background: var(--bg-cream);
+            padding: 40px;
+            border-right: 8px solid var(--primary-green);
+            margin: 35px 0;
+            font-style: italic;
+            font-size: 1.6rem;
+        }
+
+        .faq { background: var(--topic-peach); }
+        .accordion-item {
+            background: white; margin-bottom: 20px; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .accordion-header {
+            padding: 25px 30px; cursor: pointer; display: flex;
+            justify-content: space-between; align-items: center;
+            font-weight: 600; color: var(--primary-green); font-size: 1.6rem;
+        }
+        .accordion-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            padding: 0 30px; background: #fff; font-size: 1.4rem;
+        }
+        .active .accordion-body { max-height: 600px; padding-bottom: 30px; }
+
+        .check-list li {
+            display: flex; align-items: center; margin-bottom: 20px; font-size: 1.5rem;
+        }
+        .check-list i {
+            color: var(--primary-green); background: var(--topic-peach);
+            padding: 12px; border-radius: 50%; margin-left: 20px; font-size: 1.4rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.4rem; }
+            body { font-size: 24px; }
+            .about-wrapper { flex-direction: column; text-align: center; }
+            .about-image img { width: 300px; height: 300px; }
+            section { padding: 50px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="info-badge">הדרכה חיה מיוחדת לנשים 50+</div>
+            <h1>עיכול של שינוי <br> מבהלה לביטחון</h1>
+            <p style="max-width: 900px; margin: 25px auto; font-size: 1.6rem; font-weight: 400;">
+                הקשר המדהים בין הבטן לנפש ואיך לעבור ממצב של "הישרדות" למצב של בריאות וצמיחה
+            </p>
+            
+            <div class="form-box" id="top-form">
+                <h3 style="margin-bottom: 15px; font-size: 1.8rem; text-align: center;">הירשמי עכשיו להדרכה</h3>
+                
+                <div class="webinar-info-row">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>יום רביעי 28.01 | 20:00</span>
+                </div>
+                <div class="webinar-info-row">
+                    <i class="fas fa-video"></i>
+                    <span>שידור חי אונליין מהנוחות של הבית</span>
+                </div>
+
+                <form class="leadForm">
+                    <div class="form-group">
+                        <label>שם מלא</label>
+                        <input type="text" name="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>אימייל</label>
+                        <input type="email" name="userEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>טלפון נייד</label>
+                        <input type="tel" name="userPhone" required>
+                    </div>
+                    <button type="submit" class="btn">שמרי לי מקום עכשיו</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Problem Section -->
+    <section>
+        <div class="container">
+            <h2>האם את מכירה את התחושות האלה?</h2>
+            <div class="symptoms-box">
+                <div class="symptom-item"><i class="fas fa-times-circle"></i><span>הבטן תפוחה ולא נוחה גם כשאת אוכלת "נכון"</span></div>
+                <div class="symptom-item"><i class="fas fa-times-circle"></i><span>תחושה שהאוכל פשוט "לא יורד" או "תקוע"</span></div>
+                <div class="symptom-item"><i class="fas fa-times-circle"></i><span>גזים עצירות או אי נוחות שמלווה אותך יום אחרי יום</span></div>
+                <div class="symptom-item"><i class="fas fa-times-circle"></i><span>הרגשה שהגוף שלך "לא משתף פעולה" איתך</span></div>
+                <div class="symptom-item"><i class="fas fa-times-circle"></i><span>ניסית דיאטות תוספים ושינויים אבל שום דבר לא החזיק מעמד</span></div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 60px; font-size: 2.2rem;">ויש משהו עמוק יותר:</h3>
+            <div class="symptoms-box" style="border-right: 8px solid var(--topic-terracotta);">
+                <div class="symptom-item"><i class="fas fa-heart" style="color: var(--topic-terracotta);"></i><span>את יודעת שיש לך טוב בחיים אבל משום מה קשה לך לקבל אותו</span></div>
+                <div class="symptom-item"><i class="fas fa-heart" style="color: var(--topic-terracotta);"></i><span>תחושה של עומס פנימי כאילו את לא יכולה "לעכל" את כל הטוב</span></div>
+                <div class="symptom-item"><i class="fas fa-heart" style="color: var(--topic-terracotta);"></i><span>חיה במתח ובדאגה גם כשאין סיבה ממשית</span></div>
+                <div class="symptom-item"><i class="fas fa-heart" style="color: var(--topic-terracotta);"></i><span>מרגישה שאת תקועה במקום לא מצליחה לצמוח</span></div>
+            </div>
+            <!-- כפתור מוביל לטופס התחתון -->
+            <a href="#bottom-form-section" class="btn btn-secondary">להרשמה להדרכה</a>
+        </div>
+    </section>
+
+    <!-- Promise -->
+    <section style="background-color: var(--primary-green); color: white;">
+        <div class="container" style="text-align: center;">
+            <h2 style="color: white; margin-bottom: 30px;">מה אם הייתי אומרת לך ש...</h2>
+            <p style="font-size: 1.8rem; margin-bottom: 35px; line-height: 1.4;">הבטן שלך והנפש שלך מחוברות באופן שלא תיארת לעצמך?</p>
+            <p>שכשאת חיה במתח ובדאגה מערכת העיכול שלך ממש נסגרת</p>
+            <p style="margin-top: 45px; font-weight: 700; font-size: 1.8rem; color: var(--accent-gold);">
+                זה השילוב המדויק של השניים שמשנה הכל
+            </p>
+        </div>
+    </section>
+
+    <!-- What you will learn -->
+    <section>
+        <div class="container">
+            <h2>בהדרכה הזו את תלמדי:</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <i class="fas fa-wind card-icon"></i>
+                    <h3>נשימת הביטחון</h3>
+                    <p>הטכניקה המדויקת שמאפסת את המערכת שלך תוך 90 שניות. איך להשתמש בה לפני ארוחה או בזמן כאב</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-search card-icon"></i>
+                    <h3>מלאכת הבירור</h3>
+                    <p>איך המעיים שלך עושים "בירור" ואיך את צריכה לעשות את זה בחיים. תרגיל מעשי לשחרור מחשבות</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-utensils card-icon"></i>
+                    <h3>אסטרטגיית הביס הקטן</h3>
+                    <p>למה שינוי גדול מדי גורם לקריסה ואיך לבחור את ה"ביס הקטן" שלך להרגלים שמחזיקים מעמד</p>
+                </div>
+            </div>
+            <!-- כפתור מוביל לטופס התחתון -->
+            <a href="#bottom-form-section" class="btn btn-secondary">אני רוצה להירשם עכשיו</a>
+        </div>
+    </section>
+
+    <!-- For whom -->
+    <section style="background: white;">
+        <div class="container">
+            <h2>למי ההדרכה הזו מתאימה?</h2>
+            <ul class="check-list" style="list-style: none; max-width: 850px; margin: 50px auto;">
+                <li><i class="fas fa-check"></i><span>לך אם את בגילאי 50+ ומרגישה שהגוף משתנה ולא יודעת איך להתמודד</span></li>
+                <li><i class="fas fa-check"></i><span>לך אם את סובלת מבעיות עיכול שהרופאים אומרים "זה מהלחץ"</span></li>
+                <li><i class="fas fa-check"></i><span>לך אם את מחפשת גישה משולבת לא רק אוכל אלא החיבור העמוק</span></li>
+                <li><i class="fas fa-check"></i><span>לך אם את מרגישה שאת חיה ב"הישרדות" ורוצה לעבור ל"צמיחה"</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- About Speaker -->
+    <section class="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&h=400&auto=format&fit=crop" alt="רבקה">
+                </div>
+                <div class="about-text">
+                    <h2 class="text-start">מילה אישית ממני אליך</h2>
+                    <p>אני יודעת איך זה להרגיש שהגוף עובד נגדך. לאכול "נכון" ועדיין לסבול. לנסות הכל ושום דבר לא מחזיק מעמד</p>
+                    <div class="about-quote">
+                        "עברתי את זה. וכשהחיבור הזה קרה הכל משתנה. אני רוצה להעביר לך את מה שלמדתי בפשטות ובחום"
+                    </div>
+                    <p>הסוד הוא בחיבור בין הנפש לגוף. בואי ללמוד איתי איך לעשות את זה נכון</p>
+                    <p style="margin-top: 20px;"><strong>שלך, רבקה</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Form Section -->
+    <section id="bottom-form-section">
+        <div class="container">
+            <h2 style="margin-bottom: 40px; text-align: center;">אל תפספסי את ההזדמנות להרגיש טוב</h2>
+            
+            <div class="form-box" id="bottom-form">
+                <h3 style="margin-bottom: 15px; font-size: 1.8rem; text-align: center; width: 100%;">הירשמי עכשיו להדרכה</h3>
+                
+                <div class="webinar-info-row">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>יום רביעי 28.01 | 20:00</span>
+                </div>
+                <div class="webinar-info-row">
+                    <i class="fas fa-video"></i>
+                    <span>שידור חי אונליין מהנוחות של הבית</span>
+                </div>
+
+                <form class="leadForm">
+                    <div class="form-group">
+                        <label>שם מלא</label>
+                        <input type="text" name="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>אימייל</label>
+                        <input type="email" name="userEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>טלפון נייד</label>
+                        <input type="tel" name="userPhone" required>
+                    </div>
+                    <button type="submit" class="btn">שמרי לי מקום עכשיו</button>
+                </form>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px; font-size: 1.5rem;">
+                <p style="font-weight: 600; color: var(--primary-green);">זכרי: ההקלטה נשארת איתך לתמיד. זו השקעה בידע שישרת אותך כל החיים</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Form Submission for all forms with class leadForm
+        document.querySelectorAll('.leadForm').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'שולח...';
+
+                const fullName = form.querySelector('input[name="userName"]').value;
+                const phone = form.querySelector('input[name="userPhone"]').value;
+                const email = form.querySelector('input[name="userEmail"]').value;
+
+                const payload = {
+                    fullName: fullName,
+                    phone: phone,
+                    email: email
+                };
+
+                try {
+                    // שולח לוובהוק
+                    await fetch('https://hook.eu2.make.com/72s3t4yquexvwfgjys9lk4g6ihjfgp5t', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // מעבר לדף תשלום
+                    window.location.href = 'https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=9517660e-fead-4fa6-b0c7-476aff6af75f';
+                } catch (error) {
+                    console.error('Error sending lead:', error);
+                    // מעבר לדף תשלום גם במקרה של שגיאה
+                    window.location.href = 'https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=9517660e-fead-4fa6-b0c7-476aff6af75f';
+                }
+            });
+        });
+
+        // Smooth scrolling for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
