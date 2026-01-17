@@ -24,6 +24,7 @@
             --shadow-soft: 0 15px 35px rgba(27, 77, 62, 0.08);
             --radius-card: 20px;
             --radius-btn: 50px;
+            --error-red: #d93025;
         }
 
         * {
@@ -116,8 +117,22 @@
         .form-group input {
             width: 100%; padding: 20px; border: 2px solid #eee; border-radius: 12px; font-family: 'Rubik'; font-size: 1.4rem;
             background: #fafafa;
+            transition: border-color 0.3s;
         }
         .form-group input:focus { outline: none; border-color: var(--accent-gold); background: white; }
+        
+        .form-group input.invalid {
+            border-color: var(--error-red);
+            background-color: #fff8f8;
+        }
+
+        .error-text {
+            color: var(--error-red);
+            font-size: 1.1rem;
+            margin-top: 5px;
+            font-weight: 500;
+            display: none;
+        }
 
         .btn {
             display: inline-block;
@@ -259,18 +274,21 @@
                     <span>שידור חי אונליין מהנוחות של הבית</span>
                 </div>
 
-                <form class="leadForm">
+                <form class="leadForm" novalidate>
                     <div class="form-group">
                         <label>שם מלא</label>
                         <input type="text" name="userName" required>
+                        <div class="error-text">אנא הזיני שם מלא (לפחות 2 אותיות)</div>
                     </div>
                     <div class="form-group">
                         <label>אימייל</label>
                         <input type="email" name="userEmail" required>
+                        <div class="error-text">אנא הזיני כתובת אימייל תקינה</div>
                     </div>
                     <div class="form-group">
                         <label>טלפון נייד</label>
-                        <input type="tel" name="userPhone" required>
+                        <input type="tel" name="userPhone" maxlength="10" required>
+                        <div class="error-text">אנא הזיני מספר טלפון תקין (10 ספרות, מתחיל ב-05)</div>
                     </div>
                     <button type="submit" class="btn">שמרי לי מקום עכשיו</button>
                 </form>
@@ -390,18 +408,21 @@
                     <span>שידור חי אונליין מהנוחות של הבית</span>
                 </div>
 
-                <form class="leadForm">
+                <form class="leadForm" novalidate>
                     <div class="form-group">
                         <label>שם מלא</label>
                         <input type="text" name="userName" required>
+                        <div class="error-text">אנא הזיני שם מלא (לפחות 2 אותיות)</div>
                     </div>
                     <div class="form-group">
                         <label>אימייל</label>
                         <input type="email" name="userEmail" required>
+                        <div class="error-text">אנא הזיני כתובת אימייל תקינה</div>
                     </div>
                     <div class="form-group">
                         <label>טלפון נייד</label>
-                        <input type="tel" name="userPhone" required>
+                        <input type="tel" name="userPhone" maxlength="10" required>
+                        <div class="error-text">אנא הזיני מספר טלפון תקין (10 ספרות, מתחיל ב-05)</div>
                     </div>
                     <button type="submit" class="btn">שמרי לי מקום עכשיו</button>
                 </form>
@@ -414,18 +435,56 @@
     </section>
 
     <script>
-        // Form Submission for all forms with class leadForm
+        // Form Validation and Submission
         document.querySelectorAll('.leadForm').forEach(form => {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const submitBtn = form.querySelector('button[type="submit"]');
                 
+                // Fields
+                const nameInput = form.querySelector('input[name="userName"]');
+                const emailInput = form.querySelector('input[name="userEmail"]');
+                const phoneInput = form.querySelector('input[name="userPhone"]');
+                
+                // Values
+                const fullName = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const phone = phoneInput.value.trim();
+                
+                let isValid = true;
+
+                // Reset states
+                form.querySelectorAll('input').forEach(input => input.classList.remove('invalid'));
+                form.querySelectorAll('.error-text').forEach(err => err.style.display = 'none');
+
+                // Name Validation (at least 2 letters)
+                if (fullName.length < 2) {
+                    nameInput.classList.add('invalid');
+                    nameInput.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+
+                // Email Validation (contains @)
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    emailInput.classList.add('invalid');
+                    emailInput.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+
+                // Phone Validation (10 digits, starts with 05)
+                const phoneRegex = /^05\d{8}$/;
+                if (!phoneRegex.test(phone)) {
+                    phoneInput.classList.add('invalid');
+                    phoneInput.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                // Proceed with submission
+                const submitBtn = form.querySelector('button[type="submit"]');
                 submitBtn.disabled = true;
                 submitBtn.innerText = 'שולח...';
-
-                const fullName = form.querySelector('input[name="userName"]').value;
-                const phone = form.querySelector('input[name="userPhone"]').value;
-                const email = form.querySelector('input[name="userEmail"]').value;
 
                 const payload = {
                     fullName: fullName,
@@ -464,6 +523,5 @@
             });
         });
     </script>
-<script src="https://rivkaol.github.io/legal-footer.js"></script>
 </body>
 </html>
