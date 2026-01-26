@@ -71,6 +71,7 @@
             text-align: center;
         }
 
+        /* Badge Style */
         .info-badge {
             background: var(--primary-green);
             color: white;
@@ -86,7 +87,7 @@
 
         .form-box {
             background: white; 
-            max-width: 700px; 
+            max-width: 750px; 
             margin: 30px auto;
             padding: 45px; 
             border-radius: 30px; 
@@ -248,6 +249,7 @@
             .about-wrapper { flex-direction: column; text-align: center; }
             .about-image img { width: 300px; height: 300px; }
             section { padding: 50px 0; }
+            .btn { font-size: 1.5rem; padding: 1.2rem 1.5rem; }
         }
     </style>
 </head>
@@ -425,6 +427,8 @@
                         <div class="error-text">אנא הזיני מספר טלפון תקין (10 ספרות, מתחיל ב-05)</div>
                     </div>
                     <button type="submit" class="btn">שמרי לי מקום עכשיו</button>
+                    <!-- פסקה מעוצבת מתחת לכפתור -->
+                    <p style="margin-top: 20px; font-weight: 600; font-size: 1.3rem; color: var(--primary-green);">עלות ההדרכה: 37 ₪ | הקלטה נשארת לצפייה תמיד</p>
                 </form>
             </div>
             
@@ -440,30 +444,25 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
-                // Fields
                 const nameInput = form.querySelector('input[name="userName"]');
                 const emailInput = form.querySelector('input[name="userEmail"]');
                 const phoneInput = form.querySelector('input[name="userPhone"]');
                 
-                // Values
                 const fullName = nameInput.value.trim();
                 const email = emailInput.value.trim();
                 const phone = phoneInput.value.trim();
                 
                 let isValid = true;
 
-                // Reset states
                 form.querySelectorAll('input').forEach(input => input.classList.remove('invalid'));
                 form.querySelectorAll('.error-text').forEach(err => err.style.display = 'none');
 
-                // Name Validation (at least 2 letters)
                 if (fullName.length < 2) {
                     nameInput.classList.add('invalid');
                     nameInput.nextElementSibling.style.display = 'block';
                     isValid = false;
                 }
 
-                // Email Validation (contains @)
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     emailInput.classList.add('invalid');
@@ -471,7 +470,6 @@
                     isValid = false;
                 }
 
-                // Phone Validation (10 digits, starts with 05)
                 const phoneRegex = /^05\d{8}$/;
                 if (!phoneRegex.test(phone)) {
                     phoneInput.classList.add('invalid');
@@ -481,9 +479,9 @@
 
                 if (!isValid) return;
 
-                // Proceed with submission
                 const submitBtn = form.querySelector('button[type="submit"]');
                 submitBtn.disabled = true;
+                const originalText = submitBtn.innerText;
                 submitBtn.innerText = 'שולח...';
 
                 const payload = {
@@ -493,14 +491,11 @@
                 };
 
                 try {
-                    // שולח לוובהוק
                     await fetch('https://hook.eu2.make.com/72s3t4yquexvwfgjys9lk4g6ihjfgp5t', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-
-                    // מעבר לדף תשלום
                     window.location.href = 'https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=9517660e-fead-4fa6-b0c7-476aff6af75f';
                 } catch (error) {
                     console.error('Error sending lead:', error);
@@ -523,6 +518,5 @@
             });
         });
     </script>
-<script src="https://rivkaol.github.io/legal-footer.js"></script>
 </body>
 </html>
